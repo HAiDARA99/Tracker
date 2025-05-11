@@ -12,3 +12,4 @@ final class SplashViewController: UIViewController {
         
     }
 }
+
