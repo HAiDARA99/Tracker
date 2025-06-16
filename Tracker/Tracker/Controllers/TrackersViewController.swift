@@ -25,13 +25,14 @@ final class TrackersViewController: UIViewController {
         let addButton = UIBarButtonItem(
             image: UIImage(named: "AddTrackerIcon"),
             style: .plain,
-            target: nil,
+            target: self,
             action: #selector(addButtonTapped)
         )
         
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .compact
+        datePicker.locale = Locale(identifier: "ru_RU")
         let currentDate = Date()
         let calendar = Calendar.current
         let minDate = calendar.date(byAdding: .year, value: -10, to: currentDate)
@@ -62,8 +63,9 @@ final class TrackersViewController: UIViewController {
     }
     
     @objc func addButtonTapped() {
-        let addTrackerViewController = TrackerTypeVC()
-        navigationController?.pushViewController(addTrackerViewController, animated: true)
+        let trackerTypeVC = TrackerTypeVC()
+        let navController = UINavigationController(rootViewController: trackerTypeVC)
+        present(navController, animated: true)
     }
     
     private func setupEmptyView() {
@@ -202,16 +204,16 @@ extension TrackersViewController: UICollectionViewDataSource {
 extension TrackersViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let screenWidth = collectionView.bounds.width
-        let itemWidth = (screenWidth - 41) / 2 // Левый 16, правый 16, между 9
+        let itemWidth = (screenWidth - 41) / 2
         let height: CGFloat = 148
         return CGSize(width: itemWidth, height: height)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat { // отступ между ячейками по горизонтали
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 9
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat { // отступ между ячейками по вертикали
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
     
