@@ -1,6 +1,6 @@
 import UIKit
 
-class CreationTrackerVC: UIViewController {
+class UnregularTrackerVC: UIViewController {
     private let mainCollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -79,7 +79,7 @@ class CreationTrackerVC: UIViewController {
         ])
         
         mainCollectionView.register(TextFieldCollectionViewCell.self, forCellWithReuseIdentifier: TextFieldCollectionViewCell.reuseIdentifier)
-        mainCollectionView.register(TableViewCollectionViewCell.self, forCellWithReuseIdentifier: TableViewCollectionViewCell.reuseIdentifier)
+        mainCollectionView.register(UnregularEventCell.self, forCellWithReuseIdentifier: UnregularEventCell.reuseIdentifier)
         mainCollectionView.register(EmojiCell.self, forCellWithReuseIdentifier: EmojiCell.reuseIdentifier)
         mainCollectionView.register(EmojiHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: EmojiHeaderView.reuseIdentifier)
         mainCollectionView.register(ColorCell.self, forCellWithReuseIdentifier: ColorCell.reuseIdentifier)
@@ -107,7 +107,7 @@ class CreationTrackerVC: UIViewController {
     }
 }
 
-extension CreationTrackerVC: UICollectionViewDataSource {
+extension UnregularTrackerVC: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 4
     }
@@ -122,7 +122,7 @@ extension CreationTrackerVC: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TextFieldCollectionViewCell.reuseIdentifier, for: indexPath) as! TextFieldCollectionViewCell
             return cell
         case 1:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TableViewCollectionViewCell.reuseIdentifier, for: indexPath) as! TableViewCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UnregularEventCell.reuseIdentifier, for: indexPath) as! UnregularEventCell
             cell.delegate = self
             return cell
         case 2:
@@ -155,13 +155,13 @@ extension CreationTrackerVC: UICollectionViewDataSource {
     }
 }
 
-extension CreationTrackerVC: UICollectionViewDelegateFlowLayout {
+extension UnregularTrackerVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
         let height: CGFloat
         switch indexPath.section {
         case 0: height = 75
-        case 1: height = 150
+        case 1: height = 75
         case 2: height = 180
         case 3: height = 180
         default: height = 100
@@ -184,10 +184,11 @@ extension CreationTrackerVC: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension CreationTrackerVC: TableViewCollectionViewCellDelegate {
-    func didSelectScheduleRow() {
-        let scheduleVC = ScheduleVC()
-        let navController = UINavigationController(rootViewController: scheduleVC)
+extension UnregularTrackerVC: UnregularEventCellDelegate {
+    func didSelectCategoryRow() {
+        let newCathegoryVC = NewCategoryVC()
+        let navController = UINavigationController(rootViewController: newCathegoryVC)
         present(navController, animated: true, completion: nil)
     }
 }
+

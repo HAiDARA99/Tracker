@@ -1,15 +1,14 @@
 import UIKit
 
-protocol TableViewCollectionViewCellDelegate: AnyObject {
-    func didSelectScheduleRow()
+protocol UnregularEventCellDelegate: AnyObject {
     func didSelectCategoryRow()
 }
 
-class TableViewCollectionViewCell: UICollectionViewCell {
-    static let reuseIdentifier = "TableViewCell"
-    weak var delegate: TableViewCollectionViewCellDelegate?
+class UnregularEventCell: UICollectionViewCell {
+    static let reuseIdentifier = "UnregularEventCell"
     
     private let tableView = UITableView(frame: .zero)
+    weak var delegate: UnregularEventCellDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -20,7 +19,7 @@ class TableViewCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupTableView() {
+    private func setupTableView() {
         contentView.addSubview(tableView)
         
         tableView.isScrollEnabled = false
@@ -38,8 +37,7 @@ class TableViewCollectionViewCell: UICollectionViewCell {
         tableView.layer.maskedCorners = [.layerMinXMinYCorner,
                                          .layerMaxXMinYCorner,
                                          .layerMinXMaxYCorner,
-                                         .layerMaxXMaxYCorner,
-        ]
+                                         .layerMaxXMaxYCorner]
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -47,57 +45,35 @@ class TableViewCollectionViewCell: UICollectionViewCell {
             tableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             tableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
         ])
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        
     }
 }
 
-extension TableViewCollectionViewCell: UITableViewDataSource {
-    func tableView(
-        _ tableView: UITableView,
-        numberOfRowsInSection section: Int
-    ) -> Int {
-        return 2
+extension UnregularEventCell: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
     }
     
-    func tableView(
-        _ tableView: UITableView,
-        cellForRowAt indexPath: IndexPath
-    ) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TwoOptionsCell.reuseIdentifier, for: indexPath) as? TwoOptionsCell else {
             return UITableViewCell()
         }
-        let labelOptions: [String] = ["Категория", "Расписание"]
-        let labelOption = labelOptions[indexPath.row]
+        let labelOption = "Категория"
         cell.configure(labelOption: labelOption)
         return cell
     }
 }
 
-extension TableViewCollectionViewCell: UITableViewDelegate {
+extension UnregularEventCell: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let numberOfRows = tableView.numberOfRows(inSection: indexPath.section)
-        if indexPath.row == 0 {
-            cell.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-        } else if indexPath.row == numberOfRows - 1 {
-            cell.separatorInset = UIEdgeInsets(top: 0, left: tableView.bounds.width, bottom: 0, right: 0)
-        } else {
-            cell.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-        }
+        cell.separatorInset = UIEdgeInsets(top: 0, left: tableView.bounds.width, bottom: 0, right: 0)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.row == 1 {
-            delegate?.didSelectScheduleRow()
-        } else {
-            delegate?.didSelectCategoryRow()
-        }
+        delegate?.didSelectCategoryRow()
     }
 }
