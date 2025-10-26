@@ -11,6 +11,16 @@ protocol TrackerCreationProtocol: AnyObject {
 final class TrackerTypeVC: UIViewController {
     weak var delegate: TrackerTypeVCDelegate?
     
+    private lazy var titleLabel: UILabel = {
+        var label = UILabel()
+        label.text = "Создание трекера"
+        label.font = .systemFont(ofSize: 16, weight: .medium)
+        label.textColor = .ypBlack
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private let habitButton = {
         let button1 = UIButton()
         button1.setTitle("Привычка", for: .normal)
@@ -42,30 +52,21 @@ final class TrackerTypeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        setupNavBar()
     }
     
-    private func setupNavBar() {
-        let appearance = UINavigationBarAppearance()
-        appearance.titleTextAttributes = [
-            .font: UIFont.systemFont(ofSize: 16, weight: .medium),
-            .foregroundColor: UIColor.black
-        ]
-        appearance.configureWithOpaqueBackground()
-        appearance.shadowColor = .clear
-        
-        navigationItem.standardAppearance = appearance
-        navigationItem.scrollEdgeAppearance = appearance
-        navigationItem.title = "Создание трекера"
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     private func setupUI() {
+        view.addSubview(titleLabel)
         view.addSubview(habitButton)
         view.addSubview(unregularEventButton)
         
         view.backgroundColor = .white
         
-        [habitButton, unregularEventButton].forEach {
+        [titleLabel, habitButton, unregularEventButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
@@ -73,6 +74,9 @@ final class TrackerTypeVC: UIViewController {
         unregularEventButton.addTarget(self, action: #selector(unregularEventButtonTapped), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 26),
+            
             habitButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             habitButton.heightAnchor.constraint(equalToConstant: 60),
             habitButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),

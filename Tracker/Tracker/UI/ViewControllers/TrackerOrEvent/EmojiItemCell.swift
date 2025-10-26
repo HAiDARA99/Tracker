@@ -30,7 +30,6 @@ class EmojiItemCell: UICollectionViewCell {
     private func setupUI() {
         contentView.addSubview(backgroundViewLayer)
         contentView.addSubview(emojiLabel)
-        contentView.backgroundColor = .white
         
         NSLayoutConstraint.activate([
             backgroundViewLayer.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),

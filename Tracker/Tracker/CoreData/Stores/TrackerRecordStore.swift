@@ -1,13 +1,13 @@
 import CoreData
 
-protocol TrackerRecordStoreProtocol: AnyObject {
+protocol TrackerRecordStoreDelegate: AnyObject {
     func trackerRecordStoreDidUpdate()
 }
 
 class TrackerRecordStore: NSObject {
-    let context = CoreDataManager.shared.context
-    weak var delegate: TrackerRecordStoreProtocol?
     static let shared = TrackerRecordStore()
+    let context = CoreDataManager.shared.context
+    weak var delegate: TrackerRecordStoreDelegate?
     private var recordsFetchedResultsController: NSFetchedResultsController<TrackerRecordCD>?
     var records: [TrackerRecord]? {
         guard
@@ -35,6 +35,11 @@ class TrackerRecordStore: NSObject {
         try? controller.performFetch()
     }
     
+    func addRecord(_ record: TrackerRecord) throws {
+        _ = createCoreDataTrackerRecord(record)
+        try saveContext()
+    }
+    
     func createCoreDataTrackerRecord(_ record: TrackerRecord) -> TrackerRecordCD {
         let newTrackerRecord = TrackerRecordCD(context: context)
         newTrackerRecord.date = record.date
@@ -58,18 +63,28 @@ class TrackerRecordStore: NSObject {
         let filteredRecord = trackerRecords.first { $0.trackerID == trackerId && $0.date == date }
         if let trackerRecordCD = filteredRecord {
             context.delete(trackerRecordCD)
-            try context.save()
+            try saveContext()
         }
     }
     
-    func deleteAllRecordsForTrackes(_ id: UUID) throws {
+    func deleteAllRecordsForTracker(_ id: UUID) throws {
         let request = TrackerRecordCD.fetchRequest()
         request.predicate = NSPredicate(format: "%K == %@", #keyPath(TrackerRecordCD.trackerID), id as CVarArg)
         guard let trackerRecords = try? context.fetch(request) else { return }
         trackerRecords.forEach {
             context.delete($0)
         }
-        try context.save()
+        try saveContext()
+    }
+    
+    private func saveContext() throws {
+        guard context.hasChanges else { return }
+        do {
+            try context.save()
+        } catch {
+            context.rollback()
+            throw error
+        }
     }
 }
 

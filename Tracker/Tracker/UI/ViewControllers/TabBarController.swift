@@ -29,7 +29,7 @@ final class TabBarController: UITabBarController {
         tabBar.isTranslucent = false
         tabBar.backgroundColor = .white
         tabBar.tintColor = .blue
-        tabBar.unselectedItemTintColor = .lightGrey
+        tabBar.unselectedItemTintColor = .ypLightGray
         
         tabBar.layer.shadowColor = UIColor.systemGray4.cgColor
         tabBar.layer.shadowOpacity = 0.3

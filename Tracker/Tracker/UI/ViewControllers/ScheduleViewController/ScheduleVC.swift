@@ -9,6 +9,16 @@ class ScheduleVC: UIViewController {
     var selectedWeekDays: [Weekday] = []
     weak var delegate: ScheduleVCDelegate?
     
+    private lazy var titleLabel: UILabel = {
+        var label = UILabel()
+        label.text = "Расписание"
+        label.font = .systemFont(ofSize: 16, weight: .medium)
+        label.textColor = .ypBlack
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private let doneButton = {
         let button = UIButton()
         button.setTitle("Готово", for: .normal)
@@ -27,10 +37,10 @@ class ScheduleVC: UIViewController {
         
         view.backgroundColor = .white
         
+        view.addSubview(titleLabel)
         view.addSubview(tableView)
         view.addSubview(doneButton)
         setupTableView()
-        setupNavBar()
         doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
     }
     
@@ -50,11 +60,14 @@ class ScheduleVC: UIViewController {
         tableView.layer.maskedCorners = [.layerMinXMinYCorner,
                                          .layerMaxXMinYCorner,
                                          .layerMinXMaxYCorner,
-                                         .layerMaxXMaxYCorner,
+                                         .layerMaxXMaxYCorner
         ]
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 26),
+            
+            tableView.topAnchor.constraint(equalTo: titleLabel.topAnchor, constant: 30),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,constant: -123),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -67,23 +80,8 @@ class ScheduleVC: UIViewController {
 
     }
     
-    private func setupNavBar() {
-        let appearance = UINavigationBarAppearance()
-        appearance.titleTextAttributes = [
-            .font: UIFont.systemFont(ofSize: 16, weight: .medium),
-            .foregroundColor: UIColor.black
-        ]
-        appearance.configureWithOpaqueBackground()
-        appearance.shadowColor = .clear
-        
-        navigationItem.standardAppearance = appearance
-        navigationItem.scrollEdgeAppearance = appearance
-        navigationItem.title = "Расписание"
-    }
-    
     @objc private func doneButtonTapped() {
         delegate?.didSelectDays(selectedWeekDays)
-        
         navigationController?.popViewController(animated: true)
     }
 }

@@ -5,6 +5,7 @@ enum CoreDataError: Error {
     case objectNotFound
     case filteringFailed
     case saveFailed
+    case missionFailed
 }
 
 class CoreDataManager {

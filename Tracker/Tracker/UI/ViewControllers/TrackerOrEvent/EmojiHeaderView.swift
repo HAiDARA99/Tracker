@@ -1,12 +1,20 @@
+//
+//  EmojiCellHeader.swift
+//  Tracker
+//
+//  Created by Рауль on 22.10.2025.
+//
+
 import UIKit
 
 class EmojiHeaderView: UICollectionReusableView {
-    static let reuseIdentifier = "EmojiHeaderView"
+    static let identifier = "EmojiHeaderView"
     
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 19, weight: .bold)
         label.textColor = .black
+        label.text = "Эмоджи"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -36,5 +44,3 @@ class EmojiHeaderView: UICollectionReusableView {
         titleLabel.text = text
     }
 }
-
-

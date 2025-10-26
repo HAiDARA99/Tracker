@@ -48,7 +48,7 @@ class ScheduleCell: UITableViewCell {
         mainStack.addArrangedSubview(weekdayLabel)
         mainStack.addArrangedSubview(switcher)
         contentView.addSubview(mainStack)
-        contentView.backgroundColor = UIColor(named: "BackgroundDay")
+        contentView.backgroundColor = .ypBackground
         
         NSLayoutConstraint.activate([
             mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),

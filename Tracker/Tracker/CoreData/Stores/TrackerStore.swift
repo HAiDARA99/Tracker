@@ -12,6 +12,7 @@ class TrackerStore: NSObject {
     weak var delegate: TrackerStoreDelegate?
     private let recordStore = TrackerRecordStore()
     private var trackersFetchedResultsController: NSFetchedResultsController<TrackerCD>?
+    
     private var trackers: [Tracker] {
         guard
             let objects = self.trackersFetchedResultsController?.fetchedObjects,
@@ -93,7 +94,7 @@ class TrackerStore: NSObject {
             trackerCD.category = newCategoryCD
         }
         
-        try? context.save()
+        try? saveContext()
         let request = TrackerCD.fetchRequest()
         if let all = try? context.fetch(request) {
             print("Сейчас в Core Data сохранено трекеров:", all.map { $0.name ?? "Без имени" })
@@ -110,7 +111,7 @@ class TrackerStore: NSObject {
         trackerToUpdate.emoji = updatedTracker.emoji
         trackerToUpdate.schedule = updatedTracker.schedule as NSObject
         
-        try? context.save()
+        try? saveContext()
     }
     
     func deleteTracker(_ model: Tracker) throws {
@@ -119,7 +120,17 @@ class TrackerStore: NSObject {
         guard let trackers = try? context.fetch(request) else { return }
         if let tracker = trackers.first {
             context.delete(tracker)
+            try saveContext()
+        }
+    }
+    
+    private func saveContext() throws {
+        guard context.hasChanges else { return }
+        do {
             try context.save()
+        } catch {
+            context.rollback()
+            throw error
         }
     }
 

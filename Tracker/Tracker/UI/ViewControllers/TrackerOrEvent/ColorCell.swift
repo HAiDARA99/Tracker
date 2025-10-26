@@ -43,6 +43,7 @@ class ColorCell: UICollectionViewCell {
     
     private func setupUI() {
         contentView.addSubview(colorCollectionView)
+        contentView.backgroundColor = .ypBackground
         
         NSLayoutConstraint.activate([
             colorCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -55,6 +56,8 @@ class ColorCell: UICollectionViewCell {
         colorCollectionView.delegate = self
         colorCollectionView.dataSource = self
     }
+    
+    
 }
 
 extension ColorCell: UICollectionViewDataSource {
