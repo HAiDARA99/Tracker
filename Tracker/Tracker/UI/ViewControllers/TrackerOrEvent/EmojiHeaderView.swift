@@ -14,7 +14,7 @@ class EmojiHeaderView: UICollectionReusableView {
         let label = UILabel()
         label.font = .systemFont(ofSize: 19, weight: .bold)
         label.textColor = .black
-        label.text = "Эмоджи"
+        label.text = NSLocalizedString("Emoji", comment: "")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

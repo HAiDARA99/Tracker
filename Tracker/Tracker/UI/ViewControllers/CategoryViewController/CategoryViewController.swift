@@ -14,7 +14,7 @@ final class CategoryViewController: UIViewController {
     
     private var titleLabel: UILabel = {
         var label = UILabel()
-        label.text = NSLocalizedString("Категория", comment: "")
+        label.text = NSLocalizedString("Category", comment: "")
         label.font = .systemFont(ofSize: 16, weight: .medium)
         label.textColor = .ypBlack
         label.textAlignment = .center
@@ -24,7 +24,7 @@ final class CategoryViewController: UIViewController {
     
     let addCategoryButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle(NSLocalizedString("Добавить категорию", comment: ""), for: .normal)
+        button.setTitle(NSLocalizedString("AddCategory", comment: ""), for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
         button.tintColor = .ypWhite
         button.backgroundColor = .ypBlack
@@ -42,7 +42,7 @@ final class CategoryViewController: UIViewController {
     
     private lazy var stubLabel: UILabel = {
         let label = UILabel()
-        label.text = NSLocalizedString("Привычки и события можно\nобъединить по смыслу", comment: "")
+        label.text = NSLocalizedString("StubLabelHabitsAndEvents", comment: "")
         label.font = .systemFont(ofSize: 12, weight: .medium)
         label.numberOfLines = 0
         label.textAlignment = .center
@@ -147,10 +147,10 @@ final class CategoryViewController: UIViewController {
     
     private func showAlert(for category: String) {
         let alertModel = AlertModel(
-            title: "Категория не нужна",
-            message: "Трекеры тоже будут удалены нахуй",
-            firstText: "Удалить",
-            secondText: "Отмена") { [weak self] in
+            title: NSLocalizedString("CategoryNotNeeded", comment: ""),
+            message: NSLocalizedString("TrackersWillAlsoDeleted", comment: ""),
+            firstText: NSLocalizedString("Delete", comment: ""),
+            secondText: NSLocalizedString("Undo", comment: "")) { [weak self] in
                 guard let self = self else { return }
                 viewModel.deleteCategory(category)
             }
@@ -211,7 +211,7 @@ extension CategoryViewController: UITableViewDelegate {
                 return UIMenu()
             }
             
-            let editAction = UIAction(title: NSLocalizedString("Редактировать", comment: "")) { [weak self] action in
+            let editAction = UIAction(title: NSLocalizedString("Edit", comment: "")) { [weak self] action in
                 guard let self = self else { return }
                 let editNameCategory = cell.textLabel?.text
                 let viewController = CreateCategoryViewController(eventType: .edit)
@@ -219,7 +219,7 @@ extension CategoryViewController: UITableViewDelegate {
                 self.present(viewController, animated: true)
             }
             
-            let deleteAction = UIAction(title: NSLocalizedString("Удалить", comment: ""), attributes: .destructive) { [weak self] action in
+            let deleteAction = UIAction(title: NSLocalizedString("Delete", comment: ""), attributes: .destructive) { [weak self] action in
                 guard let self = self else { return }
                 let deleteCategory = cell.textLabel?.text
                 guard let categoryToDelete = deleteCategory else { return }

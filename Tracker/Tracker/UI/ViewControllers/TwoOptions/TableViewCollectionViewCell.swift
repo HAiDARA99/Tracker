@@ -79,10 +79,10 @@ extension TableViewCollectionViewCell: UITableViewDataSource {
         
         if indexPath.row == 0 {
             let subtitle = currentCategoryTitle.isEmpty ? nil : currentCategoryTitle
-            cell.configure(title: "Категория", subtitle: subtitle)
+            cell.configure(title: NSLocalizedString("Category", comment: ""), subtitle: subtitle)
         } else {
             let subtitle = currentSchedule.isEmpty ? nil : currentSchedule
-            cell.configure(title: "Расписание", subtitle: subtitle)
+            cell.configure(title: NSLocalizedString("Schedule", comment: ""), subtitle: subtitle)
         }
         return cell
     }
@@ -103,14 +103,6 @@ extension TableViewCollectionViewCell: UITableViewDelegate {
             cell.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         }
     }
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        let rows = tableView.numberOfRows(inSection: indexPath.section)
-//        if indexPath.row == rows - 1 {
-//            cell.separatorInset = UIEdgeInsets(top: 0, left: tableView.bounds.width, bottom: 0, right: 0)
-//        } else {
-//            cell.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-//        }
-//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

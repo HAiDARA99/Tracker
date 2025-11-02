@@ -19,7 +19,7 @@ final class IrregularTrackerVC: UIViewController {
     // MARK: - UI
     private lazy var titleLabel: UILabel = {
         let l = UILabel()
-        l.text = "Нерегулярное событие"
+        l.text = NSLocalizedString("NewIrregularEvent", comment: "")
         l.font = .systemFont(ofSize: 16, weight: .medium)
         l.textColor = .ypBlack
         l.textAlignment = .center
@@ -31,7 +31,7 @@ final class IrregularTrackerVC: UIViewController {
         let tf = UITextField()
         tf.backgroundColor = .ypBackground
         tf.textColor = .ypBlack
-        tf.placeholder = "Введите название трекера"
+        tf.placeholder = NSLocalizedString("EnterNameOfTracker", comment: "")
         tf.font = .systemFont(ofSize: 17, weight: .regular)
         tf.layer.cornerRadius = 16
         tf.delegate = self
@@ -45,7 +45,7 @@ final class IrregularTrackerVC: UIViewController {
 
     private lazy var restrictionLabel: UILabel = {
         let l = UILabel()
-        l.text = "Ограничение 38 символов"
+        l.text = NSLocalizedString("38CharacterLimit", comment: "")
         l.font = .systemFont(ofSize: 17, weight: .regular)
         l.textColor = .ypRed
         l.textAlignment = .center
@@ -108,7 +108,7 @@ final class IrregularTrackerVC: UIViewController {
 
     private lazy var cancelButton: UIButton = {
         let b = UIButton(type: .system)
-        b.setTitle("Отменить", for: .normal)
+        b.setTitle(NSLocalizedString("Undo", comment: ""), for: .normal)
         b.backgroundColor = .ypWhite
         b.tintColor = .ypRed
         b.layer.cornerRadius = 16
@@ -121,7 +121,7 @@ final class IrregularTrackerVC: UIViewController {
 
     private lazy var createButton: UIButton = {
         let b = UIButton(type: .system)
-        b.setTitle("Создать", for: .normal)
+        b.setTitle(NSLocalizedString("Create", comment: ""), for: .normal)
         b.backgroundColor = .ypGray
         b.tintColor = .ypWhite
         b.layer.cornerRadius = 16
@@ -264,14 +264,12 @@ final class IrregularTrackerVC: UIViewController {
 
     @objc private func textFieldDidChange() {
         trackerName = nameTextField.text
-        // Ограничение 38 символов
         restrictionLabel.isHidden = (nameTextField.text ?? "").count < 38
         checkCorrectness()
     }
 
     // MARK: - Validation
     private func checkCorrectness() {
-        // Для нерегулярного: обязательны имя, категория, эмоджи, цвет
         let valid = !(trackerName?.isEmpty ?? true)
             && !selectedCategoryTitle.isEmpty
             && selectedEmoji != nil
@@ -302,10 +300,8 @@ extension IrregularTrackerVC: UITextFieldDelegate {
         guard let range = Range(nsRange, in: current) else { return false }
         let updated = current.replacingCharacters(in: range, with: string)
         
-        // Показываем или скрываем предупреждение
         restrictionLabel.isHidden = updated.count < nameLimit
         
-        // Ограничиваем ввод
         return updated.count <= nameLimit
     }
 }
@@ -326,7 +322,7 @@ extension IrregularTrackerVC: UITableViewDataSource, UITableViewDelegate {
         ) as? TwoOptionsCell else { return UITableViewCell() }
 
         let subtitle = selectedCategoryTitle.isEmpty ? nil : selectedCategoryTitle
-        cell.configure(title: "Категория", subtitle: subtitle)
+        cell.configure(title: NSLocalizedString("Category", comment: ""), subtitle: subtitle)
         cell.selectionStyle = .none
         return cell
     }
@@ -358,7 +354,6 @@ extension IrregularTrackerVC: UICollectionViewDataSource, UICollectionViewDelega
         }
     }
 
-    // Headers
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
@@ -368,7 +363,7 @@ extension IrregularTrackerVC: UICollectionViewDataSource, UICollectionViewDelega
                 withReuseIdentifier: EmojiHeaderView.identifier,
                 for: indexPath
             ) as! EmojiHeaderView
-            v.configure(text: "Эмоджи")
+            v.configure(text: NSLocalizedString("Emoji", comment: ""))
             return v
         } else {
             let v = collectionView.dequeueReusableSupplementaryView(
@@ -376,7 +371,7 @@ extension IrregularTrackerVC: UICollectionViewDataSource, UICollectionViewDelega
                 withReuseIdentifier: ColorHeaderView.identifier,
                 for: indexPath
             ) as! ColorHeaderView
-            v.configure(text: "Цвета")
+            v.configure(text: NSLocalizedString("Color", comment: ""))
             return v
         }
     }

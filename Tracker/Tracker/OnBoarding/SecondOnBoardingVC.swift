@@ -18,7 +18,7 @@ class SecondOnBoardingVC: UIViewController {
     
     private let textLabel = {
         let label = UILabel()
-        label.text = "Даже если это не литры воды и йога"
+        label.text = NSLocalizedString("EvenNotLiters", comment: "")
         label.textColor = .ypBlack
         label.font = .systemFont(ofSize: 32, weight: .bold)
         label.textAlignment = .center

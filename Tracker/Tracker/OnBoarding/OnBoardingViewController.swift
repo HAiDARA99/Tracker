@@ -22,7 +22,7 @@ class OnBoardingPageViewController: UIPageViewController {
         let button = UIButton()
         button.backgroundColor = .ypBlack
         button.tintColor = .ypWhite
-        button.setTitle("Вот это технологии!", for: .normal)
+        button.setTitle(NSLocalizedString("Technologies", comment: ""), for: .normal)
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 16
         button.translatesAutoresizingMaskIntoConstraints = false

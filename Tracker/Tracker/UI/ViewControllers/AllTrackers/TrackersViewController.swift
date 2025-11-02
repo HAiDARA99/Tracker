@@ -57,13 +57,13 @@ final class TrackersViewController: UIViewController {
         navigationItem.rightBarButtonItem = rightItem
         
         let searchField = UISearchController()
-        searchField.searchBar.placeholder = "Поиск"
+        searchField.searchBar.placeholder = NSLocalizedString("Search", comment: "")
         navigationItem.searchController = searchField
         
         navigationItem.leftBarButtonItem = addButton
         navigationItem.leftBarButtonItem?.tintColor = .black
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: datePicker)
-        navigationItem.title = "Трекеры"
+        navigationItem.title = NSLocalizedString("Trackers", comment: "")
         
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -97,7 +97,7 @@ final class TrackersViewController: UIViewController {
         
         let textLabel = {
             let text = UILabel()
-            text.text = "Что будем отслеживать?"
+            text.text = NSLocalizedString("WhatWillWeTrack", comment: "")
             text.font = .systemFont(ofSize: 12)
             text.translatesAutoresizingMaskIntoConstraints = false
             text.textColor = .black

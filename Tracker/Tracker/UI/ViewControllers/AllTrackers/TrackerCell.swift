@@ -146,7 +146,10 @@ final class TrackerCell: UICollectionViewCell {
         textLabel.text = tracker.name
         topView.backgroundColor = tracker.color
         doneButton.tintColor = tracker.color
-        counterLabel.text = "\(completedCount) дней"
+        counterLabel.text = String.localizedStringWithFormat(
+            NSLocalizedString("numberDays", comment: ""),
+            completedCount
+        )
         doneButton.isSelected = isCompleted
         doneButton.isEnabled = !isFutureDate
         

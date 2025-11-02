@@ -21,7 +21,7 @@ final class CreationTrackerVC: UIViewController {
     // MARK: - UI
     private lazy var titleLabel: UILabel = {
         let l = UILabel()
-        l.text = "Новая привычка"
+        l.text = NSLocalizedString("NewHabit", comment: "")
         l.font = .systemFont(ofSize: 16, weight: .medium)
         l.textColor = .ypBlack
         l.textAlignment = .center
@@ -33,7 +33,7 @@ final class CreationTrackerVC: UIViewController {
         let tf = UITextField()
         tf.backgroundColor = .ypBackground
         tf.textColor = .ypBlack
-        tf.placeholder = "Введите название трекера"
+        tf.placeholder = NSLocalizedString("EnterNameOfTracker", comment: "")
         tf.font = .systemFont(ofSize: 17, weight: .regular)
         tf.layer.cornerRadius = 16
         tf.delegate = self
@@ -47,7 +47,7 @@ final class CreationTrackerVC: UIViewController {
     
     private lazy var restrictionLabel: UILabel = {
         let l = UILabel()
-        l.text = "Ограничение 38 символов"
+        l.text = NSLocalizedString("38CharacterLimit", comment: "")
         l.font = .systemFont(ofSize: 17, weight: .regular)
         l.textColor = .ypRed
         l.textAlignment = .center
@@ -110,7 +110,7 @@ final class CreationTrackerVC: UIViewController {
     
     private lazy var cancelButton: UIButton = {
         let b = UIButton(type: .system)
-        b.setTitle("Отменить", for: .normal)
+        b.setTitle(NSLocalizedString("Undo", comment: ""), for: .normal)
         b.backgroundColor = .ypWhite
         b.tintColor = .ypRed
         b.layer.cornerRadius = 16
@@ -123,7 +123,7 @@ final class CreationTrackerVC: UIViewController {
     
     private lazy var createButton: UIButton = {
         let b = UIButton(type: .system)
-        b.setTitle("Создать", for: .normal)
+        b.setTitle(NSLocalizedString("Create", comment: ""), for: .normal)
         b.backgroundColor = .ypGray
         b.tintColor = .ypWhite
         b.layer.cornerRadius = 16
@@ -285,7 +285,6 @@ extension CreationTrackerVC: UITextFieldDelegate {
                    shouldChangeCharactersIn nsRange: NSRange,
                    replacementString string: String) -> Bool {
         
-        // Разрешаем ввод для "живых" языков (IME, китайский и т.д.)
         if let marked = textField.markedTextRange,
            textField.position(from: marked.start, offset: 0) != nil {
             return true
@@ -295,10 +294,8 @@ extension CreationTrackerVC: UITextFieldDelegate {
         guard let range = Range(nsRange, in: current) else { return false }
         let updated = current.replacingCharacters(in: range, with: string)
         
-        // Показываем или скрываем предупреждение
         restrictionLabel.isHidden = updated.count < nameLimit
         
-        // Ограничиваем ввод
         return updated.count <= nameLimit
     }
 }
@@ -320,12 +317,14 @@ extension CreationTrackerVC: UITableViewDataSource, UITableViewDelegate {
         
         if indexPath.row == 0 {
             let subtitle = selectedCategoryTitle.isEmpty ? nil : selectedCategoryTitle
-            cell.configure(title: "Категория", subtitle: subtitle)
+            cell.configure(title: NSLocalizedString("Category", comment: ""), subtitle: subtitle)
         } else {
             let subtitle = selectedWeekDays.isEmpty
             ? nil
-            : selectedWeekDays.map { $0.shortDayName }.joined(separator: ", ")
-            cell.configure(title: "Расписание", subtitle: subtitle)
+            : (selectedWeekDays.count == Weekday.allCases.count
+               ? NSLocalizedString("EveryDay", comment: "")
+               : selectedWeekDays.map { $0.shortDayName }.joined(separator: ", "))
+            cell.configure(title: NSLocalizedString("Schedule", comment: ""), subtitle: subtitle)
         }
         cell.selectionStyle = .none
         return cell
@@ -373,7 +372,7 @@ extension CreationTrackerVC: UICollectionViewDataSource, UICollectionViewDelegat
                 withReuseIdentifier: EmojiHeaderView.identifier,
                 for: indexPath
             ) as! EmojiHeaderView
-            v.configure(text: "Эмоджи")
+            v.configure(text: NSLocalizedString("Emoji", comment: ""))
             return v
         } else {
             let v = collectionView.dequeueReusableSupplementaryView(
@@ -381,7 +380,7 @@ extension CreationTrackerVC: UICollectionViewDataSource, UICollectionViewDelegat
                 withReuseIdentifier: ColorHeaderView.identifier,
                 for: indexPath
             ) as! ColorHeaderView
-            v.configure(text: "Цвета")
+            v.configure(text: NSLocalizedString("Color", comment: ""))
             return v
         }
     }

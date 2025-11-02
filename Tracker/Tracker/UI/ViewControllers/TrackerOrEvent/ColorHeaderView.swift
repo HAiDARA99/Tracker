@@ -7,7 +7,7 @@ class ColorHeaderView: UICollectionReusableView {
         let label = UILabel()
         label.font = .systemFont(ofSize: 19, weight: .bold)
         label.textColor = .black
-        label.text = "Цвета"
+        label.text = NSLocalizedString("Color", comment: "")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

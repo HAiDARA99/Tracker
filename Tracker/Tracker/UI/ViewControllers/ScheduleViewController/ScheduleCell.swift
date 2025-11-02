@@ -59,8 +59,8 @@ class ScheduleCell: UITableViewCell {
     }
     
     func configure(weekDay: Weekday, isOn: Bool) {
-        self.weekDay = Weekday(rawValue: weekDay.rawValue)
-        weekdayLabel.text = weekDay.rawValue
+        self.weekDay = weekDay
+        weekdayLabel.text = weekDay.localizedDay
         switcher.isOn = isOn
     }
     

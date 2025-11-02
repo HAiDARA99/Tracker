@@ -13,7 +13,7 @@ final class TrackerTypeVC: UIViewController {
     
     private lazy var titleLabel: UILabel = {
         var label = UILabel()
-        label.text = "Создание трекера"
+        label.text = NSLocalizedString("TrackerCreation", comment: "")
         label.font = .systemFont(ofSize: 16, weight: .medium)
         label.textColor = .ypBlack
         label.textAlignment = .center
@@ -23,7 +23,7 @@ final class TrackerTypeVC: UIViewController {
     
     private let habitButton = {
         let button1 = UIButton()
-        button1.setTitle("Привычка", for: .normal)
+        button1.setTitle(NSLocalizedString("Habit", comment: ""), for: .normal)
         button1.setTitleColor(.white, for: .normal)
         button1.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button1.contentMode = .scaleToFill
@@ -37,7 +37,7 @@ final class TrackerTypeVC: UIViewController {
     
     private let unregularEventButton = {
         let button2 = UIButton()
-        button2.setTitle("Нерегулярное событие", for: .normal)
+        button2.setTitle(NSLocalizedString("IrregularEvents", comment: ""), for: .normal)
         button2.setTitleColor(.white, for: .normal)
         button2.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button2.contentMode = .scaleToFill

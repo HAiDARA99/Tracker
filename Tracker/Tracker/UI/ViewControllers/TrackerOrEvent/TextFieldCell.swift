@@ -12,7 +12,7 @@ class TextFieldCollectionViewCell: UICollectionViewCell {
     
     private let textField = {
         let field = UITextField()
-        field.placeholder = "Введите название трекера"
+        field.placeholder = NSLocalizedString("EnterNameOfTracker", comment: "")
         field.font = .systemFont(ofSize: 17, weight: .regular)
         field.textColor = .black
         field.backgroundColor = .ypBackground
@@ -34,7 +34,7 @@ class TextFieldCollectionViewCell: UICollectionViewCell {
     
     private let warningLabel = {
         let wl = UILabel()
-        wl.text = "Ограничение 38 символов"
+        wl.text = NSLocalizedString("38CharacterLimit", comment: "")
         wl.font = .systemFont(ofSize: 17, weight: .regular)
         wl.textColor = .ypRed
         wl.translatesAutoresizingMaskIntoConstraints = false

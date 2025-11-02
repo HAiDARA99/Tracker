@@ -28,7 +28,6 @@ class CategoryCell: UITableViewCell {
         selectionStyle = .none
         textLabel?.text = viewModel.categories[indexPath.row].title
 
-        // ✅ Фон и скругления — через backgroundView
         if viewModel.categoriesNumber() == 1 {
             backgroundView?.layer.cornerRadius = 16
             backgroundView?.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]

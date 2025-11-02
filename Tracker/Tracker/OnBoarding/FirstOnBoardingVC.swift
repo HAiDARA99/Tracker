@@ -12,7 +12,7 @@ class FirstOnBoardingVC: UIViewController {
     
     private let textLabel = {
         let label = UILabel()
-        label.text = "Отслеживайте только то, что хотите"
+        label.text = NSLocalizedString("TrackOnlyWant", comment: "")
         label.textColor = .ypBlack
         label.font = .systemFont(ofSize: 32, weight: .bold)
         label.textAlignment = .center

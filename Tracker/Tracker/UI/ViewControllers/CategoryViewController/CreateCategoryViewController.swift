@@ -12,7 +12,7 @@ enum checkTrackerType {
 }
 
 class CreateCategoryViewController: UIViewController {
-    static let identifier = Notification.Name(rawValue: "Изменить название категорииЫ")
+    static let identifier = Notification.Name(rawValue: "Изменить название категории")
     
     var editCategoryName: String?
     
@@ -22,9 +22,9 @@ class CreateCategoryViewController: UIViewController {
     private var categoryTopTitle: String {
         switch eventTypeHabit {
         case .create:
-            return "Новая категория"
+            return NSLocalizedString("NewCategory", comment: "")
         case .edit:
-            return "Редактирование категории"
+            return NSLocalizedString("EditingCategory", comment: "")
         }
     }
     
@@ -40,7 +40,7 @@ class CreateCategoryViewController: UIViewController {
     
     private var doneButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle(NSLocalizedString("Готово", comment: ""), for: .normal)
+        button.setTitle(NSLocalizedString("Done", comment: ""), for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
         button.tintColor = .ypWhite
         button.backgroundColor = .ypBlack
@@ -53,7 +53,7 @@ class CreateCategoryViewController: UIViewController {
         var textField = UITextField()
         textField.backgroundColor = .ypBackground
         textField.textColor = .ypBlack
-        textField.placeholder = "Введите название категории"
+        textField.placeholder = NSLocalizedString("EnterNameOfCategory", comment: "")
         textField.font = .systemFont(ofSize: 17, weight: .regular)
         textField.layer.cornerRadius = 16
         textField.delegate = self
